@@ -13,6 +13,7 @@ jobs:
       GITHUB_REPO: GladiousZhang/gladiouszhang.github.io
       GITHUB_BRANCH: main
       DATA_DIR: data
+      GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -33,6 +34,7 @@ jobs:
           repository: ${{ env.GITHUB_REPO }}
           ref: ${{ env.GITHUB_BRANCH }}
           path: target-repo
+          token: ${{ env.GITHUB_TOKEN }}
       - name: Move JSON file to target repository
         run: |
           mkdir -p target-repo/${{ env.DATA_DIR }}
