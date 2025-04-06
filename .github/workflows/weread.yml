@@ -27,11 +27,21 @@ jobs:
       - name: Fetch WeRead data and save as JSON
         run: |
           python scripts/weread.py
-          mv weread_books.json ${{ env.DATA_DIR }}/books.json
-      - name: Commit and push changes
+      - name: Checkout target repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.GITHUB_REPO }}
+          ref: ${{ env.GITHUB_BRANCH }}
+          path: target-repo
+      - name: Move JSON file to target repository
+        run: |
+          mkdir -p target-repo/${{ env.DATA_DIR }}
+          mv weread_books.json target-repo/${{ env.DATA_DIR }}/books.json
+      - name: Commit and push changes to target repository
+        working-directory: target-repo
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add ${{ env.DATA_DIR }}/books.json
           git commit -m 'Update WeRead data in books.json' || echo "nothing to commit"
-          git push || echo "nothing to push"    
+          git push || echo "nothing to push"
