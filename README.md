@@ -24,6 +24,21 @@ Fork 本项目仓库后，需要修改 `.github/workflows/weread.yml` 文件里�
 5. 在请求头中找到 `Cookie` 字段，复制其内容。
 6. 将复制的 Cookie 内容设置为环境变量 `WEREAD_COOKIE` 的值。你可以在 GitHub 仓库的 `Settings` -> `Secrets` 中添加该环境变量。
 
+### 3. 设置个人访问令牌（PAT）
+
+为了让 GitHub Actions 能够将生成的 books.json 文件推送到指定的仓库，你需要生成一个个人访问令牌（PAT）并将其添加到 GitHub 仓库的 Secrets 中。
+
+**生成个人访问令牌**
+
+1. 登录 GitHub，进入 Settings -> Developer settings -> Personal access tokens。
+2. 点击 Generate new token。
+3. 选择合适的权限，至少要勾选 repo。
+4. 点击 Generate token，并妥善保存生成的令牌。
+   
+**添加到 Secrets**
+
+在当前仓库的 Settings -> Secrets and variables -> Actions 中添加一个新的 Secret，命名为 PAT_TOKEN，将生成的个人访问令牌复制到值的字段。
+
 ## 功能说明
 
 本项目仅负责爬取你自己微信读书的书单信息，包含笔记内容，并将这些信息以 JSON 文件（`books.json`）的形式推送到你指定的 GitHub 仓库分支。具体如何在你的 Hexo 博客中对这些信息进行渲染展示，需要你自行完成。你可以编写 Hexo 插件或模板代码，读取 `books.json` 文件中的数据，并将其呈现在博客页面上。
