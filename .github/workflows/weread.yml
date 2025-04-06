@@ -1,0 +1,39 @@
+name: weread data sync
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  sync:
+    name: Sync WeRead Data
+    runs-on: ubuntu-latest
+    env:
+      WEREAD_COOKIE: ${{ secrets.WEREAD_COOKIE }}
+      GITHUB_REPO: GladiousZhang/gladiouszhang.github.io
+      GITHUB_BRANCH: main
+      DATA_DIR: data
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.GITHUB_REPO }}
+          ref: ${{ env.GITHUB_BRANCH }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Fetch WeRead data and save as JSON
+        run: |
+          python weread2notion/scripts/weread.py
+          mv weread_books.json ${{ env.DATA_DIR }}/books.json
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ${{ env.DATA_DIR }}/books.json
+          git commit -m 'Update WeRead data in books.json' || echo "nothing to commit"
+          git push || echo "nothing to push"    
