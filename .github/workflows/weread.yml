@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements.txt
       - name: Fetch WeRead data and save as JSON
         run: |
-          python weread2notion/scripts/weread.py
+          python hexo-weread/scripts/weread.py
           mv weread_books.json ${{ env.DATA_DIR }}/books.json
       - name: Commit and push changes
         run: |
