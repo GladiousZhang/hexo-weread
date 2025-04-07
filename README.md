@@ -1,5 +1,7 @@
 # hexo-weread
-获取微信读书的书单，包含笔记，并推送到自己的hexo博客
+获取微信读书中已做过笔记的书单，包含笔记，并推送到自己的hexo博客
+
+下一步会改成不止有笔记的，等周末再改。
 
 参考[malinkang/weread2notion: 将微信读书划线同步到Notion](https://github.com/malinkang/weread2notion?tab=readme-ov-file)
 
@@ -41,4 +43,4 @@ Fork 本项目仓库后，需要修改 `.github/workflows/weread.yml` 文件里�
 
 ## 功能说明
 
-本项目仅负责爬取你自己微信读书的书单信息，包含笔记内容，并将这些信息以 JSON 文件（`books.json`）的形式推送到你指定的 GitHub 仓库分支。具体如何在你的 Hexo 博客中对这些信息进行渲染展示，需要你自行完成。你可以编写 Hexo 插件或模板代码，读取 `books.json` 文件中的数据，并将其呈现在博客页面上。
+本项目仅负责爬取你自己已做过笔记的微信读书的书单信息，包含笔记内容，并将这些信息以 JSON 文件（`books.json`）的形式推送到你指定的 GitHub 仓库分支。具体如何在你的 Hexo 博客中对这些信息进行渲染展示，需要你自行完成。你可以编写 Hexo 插件或模板代码，读取 `books.json` 文件中的数据，并将其呈现在博客页面上。
